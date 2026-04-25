@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define styles and animations -->
+  <defs>
+    <style>
+      @keyframes moveBall {
+        0% { transform: translateX(0px); }
+        20% { transform: translateX(220px); }
+        40% { transform: translateX(440px); }
+        60% { transform: translateX(660px); }
+        80% { transform: translateX(880px); }
+        100% { transform: translateX(1000px); }
+      }
+      
+      .ball {
+        animation: moveBall 8s infinite ease-in-out;
+      }
+      
+      .title { font-size: 42px; font-weight: 700; fill: #0d47a1; letter-spacing: -0.5px; }
+      .subtitle { font-size: 18px; fill: #424242; font-weight: 500; }
+      .stage-label { font-size: 24px; font-weight: bold; fill: #ffffff; }
+      .stage-desc { font-size: 14px; fill: #212121; font-weight: 500; }
+      .stage-tool { font-size: 13px; font-weight: 600; fill: #1565c0; }
+      .stage-title { font-size: 16px; fill: #ffffff; font-weight: 600; }
+      .arrow-text { font-size: 16px; fill: #1a1a1a; font-weight: 700; }
+      .metrics-label { font-size: 15px; fill: #1a1a1a; font-weight: 600; }
+      .legend-text { font-size: 13px; fill: #424242; font-weight: 500; }
+    </style>
+    
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1a1a1a" />
+    </marker>
+    
+    <!-- Gradient definitions for visual polish -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d47a1;stop-opacity:0.05" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background with subtle gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fafbfc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5f6f8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="800" fill="url(#bgGradient)"/>
+
+  <!-- Title Section -->
+  <text x="700" y="50" class="title" text-anchor="middle">Phase 1: AutoMark RAG Pipeline</text>
+  <text x="700" y="75" class="subtitle" text-anchor="middle">Material Processing Flow — From Upload to Vector Storage</text>
+
+  <!-- Main Pipeline Track -->
+  <g id="pipeline">
+    <!-- Connection line -->
+    <line x1="100" y1="400" x2="1300" y2="400" stroke="#0d47a1" stroke-width="4" opacity="0.2"/>
+    
+    <!-- ========== STAGE 1: UPLOAD ========== -->
+    <g>
+      <!-- Circle node -->
+      <circle cx="150" cy="400" r="32" fill="#0d47a1" stroke="#0d47a1" stroke-width="0" opacity="0.95"/>
+      <circle cx="150" cy="400" r="28" fill="#1976d2"/>
+      <text x="150" y="415" text-anchor="middle" class="stage-label" font-size="28">📤</text>
+      
+      <!-- Label below -->
+      <text x="150" y="480" text-anchor="middle" class="arrow-text">Upload Materials</text>
+      <text x="150" y="502" text-anchor="middle" class="stage-tool">(Multer)</text>
+      <text x="150" y="525" text-anchor="middle" class="stage-desc" font-size="13">PPTX/PDF files</text>
+      
+      <!-- Details above -->
+      <rect x="70" y="285" width="160" height="75" fill="#ffffff" stroke="#1976d2" stroke-width="2" rx="6" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+      <text x="150" y="310" text-anchor="middle" class="stage-title">Upload</text>
+      <text x="150" y="332" text-anchor="middle" class="stage-desc">Teacher uploads</text>
+      <text x="150" y="352" text-anchor="middle" class="stage-desc">course materials</text>
+    </g>
+
+    <!-- Arrow 1 to 2 -->
+    <path d="M 182 400 L 260 400" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.6"/>
+    <text x="221" y="388" text-anchor="middle" class="arrow-text">①</text>
+
+    <!-- ========== STAGE 2: EXTRACTION ========== -->
+    <g>
+      <!-- Circle node -->
+      <circle cx="370" cy="400" r="32" fill="#d97706" stroke="#d97706" stroke-width="0" opacity="0.95"/>
+      <circle cx="370" cy="400" r="28" fill="#f59e0b"/>
+      <text x="370" y="415" text-anchor="middle" class="stage-label" font-size="28">🔍</text>
+      
+      <!-- Label below -->
+      <text x="370" y="480" text-anchor="middle" class="arrow-text">Extraction</text>
+      <text x="370" y="502" text-anchor="middle" class="stage-tool">(python-pptx, Tesseract)</text>
+      <text x="370" y="525" text-anchor="middle" class="stage-desc" font-size="13">Extract text + OCR</text>
+      
+      <!-- Details above -->
+      <rect x="290" y="285" width="160" height="75" fill="#ffffff" stroke="#f59e0b" stroke-width="2" rx="6" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+      <text x="370" y="310" text-anchor="middle" class="stage-title">Extract</text>
+      <text x="370" y="332" text-anchor="middle" class="stage-desc">Extract slide text</text>
+      <text x="370" y="352" text-anchor="middle" class="stage-desc">&amp; OCR images</text>
+    </g>
+
+    <!-- Arrow 2 to 3 -->
+    <path d="M 402 400 L 480 400" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.6"/>
+    <text x="441" y="388" text-anchor="middle" class="arrow-text">②</text>
+
+    <!-- ========== STAGE 3: CHUNKING ========== -->
+    <g>
+      <!-- Circle node -->
+      <circle cx="590" cy="400" r="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="0" opacity="0.95"/>
+      <circle cx="590" cy="400" r="28" fill="#8b5cf6"/>
+      <text x="590" y="415" text-anchor="middle" class="stage-label" font-size="28">✂️</text>
+      
+      <!-- Label below -->
+      <text x="590" y="480" text-anchor="middle" class="arrow-text">Chunking</text>
+      <text x="590" y="502" text-anchor="middle" class="stage-tool">(RecursiveCharacterTextSplitter)</text>
+      <text x="590" y="525" text-anchor="middle" class="stage-desc" font-size="13">Split into segments</text>
+      
+      <!-- Details above -->
+      <rect x="510" y="285" width="160" height="75" fill="#ffffff" stroke="#8b5cf6" stroke-width="2" rx="6" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+      <text x="590" y="310" text-anchor="middle" class="stage-title">Chunk</text>
+      <text x="590" y="332" text-anchor="middle" class="stage-desc">Split text into</text>
+      <text x="590" y="352" text-anchor="middle" class="stage-desc">400-char chunks</text>
+    </g>
+
+    <!-- Arrow 3 to 4 -->
+    <path d="M 622 400 L 700 400" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.6"/>
+    <text x="661" y="388" text-anchor="middle" class="arrow-text">③</text>
+
+    <!-- ========== STAGE 4: EMBEDDINGS ========== -->
+    <g>
+      <!-- Circle node -->
+      <circle cx="810" cy="400" r="32" fill="#0891b2" stroke="#0891b2" stroke-width="0" opacity="0.95"/>
+      <circle cx="810" cy="400" r="28" fill="#06b6d4"/>
+      <text x="810" y="415" text-anchor="middle" class="stage-label" font-size="28">🧠</text>
+      
+      <!-- Label below -->
+      <text x="810" y="480" text-anchor="middle" class="arrow-text">Embeddings</text>
+      <text x="810" y="502" text-anchor="middle" class="stage-tool">(sentence-transformers)</text>
+      <text x="810" y="525" text-anchor="middle" class="stage-desc" font-size="13">Generate vectors</text>
+      
+      <!-- Details above -->
+      <rect x="730" y="285" width="160" height="75" fill="#ffffff" stroke="#06b6d4" stroke-width="2" rx="6" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+      <text x="810" y="310" text-anchor="middle" class="stage-title">Embed</text>
+      <text x="810" y="332" text-anchor="middle" class="stage-desc">Convert to</text>
+      <text x="810" y="352" text-anchor="middle" class="stage-desc">384-dim vectors</text>
+    </g>
+
+    <!-- Arrow 4 to 5 -->
+    <path d="M 842 400 L 920 400" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.6"/>
+    <text x="881" y="388" text-anchor="middle" class="arrow-text">④</text>
+
+    <!-- ========== STAGE 5: VECTOR DB ========== -->
+    <g>
+      <!-- Circle node -->
+      <circle cx="1030" cy="400" r="32" fill="#059669" stroke="#059669" stroke-width="0" opacity="0.95"/>
+      <circle cx="1030" cy="400" r="28" fill="#10b981"/>
+      <text x="1030" y="415" text-anchor="middle" class="stage-label" font-size="28">💾</text>
+      
+      <!-- Label below -->
+      <text x="1030" y="480" text-anchor="middle" class="arrow-text">Vector DB</text>
+      <text x="1030" y="502" text-anchor="middle" class="stage-tool">(FAISS Index)</text>
+      <text x="1030" y="525" text-anchor="middle" class="stage-desc" font-size="13">Store &amp; persist</text>
+      
+      <!-- Details above -->
+      <rect x="950" y="285" width="160" height="75" fill="#ffffff" stroke="#10b981" stroke-width="2" rx="6" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"/>
+      <text x="1030" y="310" text-anchor="middle" class="stage-title">Store</text>
+      <text x="1030" y="332" text-anchor="middle" class="stage-desc">Add to FAISS</text>
+      <text x="1030" y="352" text-anchor="middle" class="stage-desc">Save to disk</text>
+    </g>
+
+    <!-- Arrow 5 to end -->
+    <path d="M 1062 400 L 1240 400" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.6"/>
+    <text x="1151" y="388" text-anchor="middle" class="arrow-text">⑤</text>
+
+    <!-- Final endpoint -->
+    <circle cx="1280" cy="400" r="24" fill="#10b981" stroke="#059669" stroke-width="2" opacity="0.9"/>
+    <text x="1280" y="413" text-anchor="middle" class="stage-label" font-size="24">✅</text>
+  </g>
+
+  <!-- Animated Ball -->
+  <g class="ball" id="progressBall">
+    <circle cx="150" cy="400" r="22" fill="#dc2626" stroke="#991b1b" stroke-width="2" opacity="0.95" filter="drop-shadow(0 2px 6px rgba(220, 38, 38, 0.4))"/>
+    <text x="150" y="410" text-anchor="middle" style="font-size: 18px; fill: white; font-weight: bold;">●</text>
+    <!-- Ball glow effect -->
+    <circle cx="150" cy="400" r="24" fill="none" stroke="#dc2626" stroke-width="1" opacity="0.2"/>
+  </g>
+
+  <!-- Status indicators at bottom -->
+  <g transform="translate(80, 620)">
+    <text x="0" y="0" class="metrics-label" font-size="16">Processing Flow:</text>
+    
+    <!-- Input -->
+    <rect x="0" y="18" width="110" height="55" fill="#ffffff" stroke="#1976d2" stroke-width="2" rx="5" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.1))"/>
+    <text x="55" y="38" text-anchor="middle" class="metrics-label">INPUT</text>
+    <text x="55" y="58" text-anchor="middle" class="stage-desc" font-size="12">PPTX/PDF</text>
+    
+    <!-- Arrow -->
+    <path d="M 115 45 L 145 45" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrowhead)" opacity="0.5"/>
+    
+    <!-- Processing -->
+    <rect x="150" y="18" width="110" height="55" fill="#ffffff" stroke="#f59e0b" stroke-width="2" rx="5" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.1))"/>
+    <text x="205" y="38" text-anchor="middle" class="metrics-label">PROCESSING</text>
+    <text x="205" y="58" text-anchor="middle" class="stage-desc" font-size="12">1-2 seconds</text>
+    
+    <!-- Arrow -->
+    <path d="M 265 45 L 295 45" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrowhead)" opacity="0.5"/>
+    
+    <!-- Output -->
+    <rect x="300" y="18" width="110" height="55" fill="#ffffff" stroke="#10b981" stroke-width="2" rx="5" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.1))"/>
+    <text x="355" y="38" text-anchor="middle" class="metrics-label">OUTPUT</text>
+    <text x="355" y="58" text-anchor="middle" class="stage-desc" font-size="12">Vectors stored</text>
+    
+    <!-- Arrow -->
+    <path d="M 415 45 L 445 45" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrowhead)" opacity="0.5"/>
+    
+    <!-- MongoDB -->
+    <rect x="450" y="18" width="120" height="55" fill="#ffffff" stroke="#8b5cf6" stroke-width="2" rx="5" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.1))"/>
+    <text x="510" y="38" text-anchor="middle" class="metrics-label">MONGODB</text>
+    <text x="510" y="58" text-anchor="middle" class="stage-desc" font-size="12">Indexed &amp; Ready</text>
+  </g>
+
+  <!-- Key Metrics Box -->
+  <g transform="translate(700, 600)">
+    <rect x="0" y="0" width="350" height="160" fill="#ffffff" stroke="#0d47a1" stroke-width="2" rx="8" filter="drop-shadow(0 2px 8px rgba(0,0,0,0.12))"/>
+    <text x="175" y="28" text-anchor="middle" class="metrics-label" font-size="16" fill="#0d47a1">Phase 1 Metrics</text>
+    
+    <line x1="15" y1="38" x2="335" y2="38" stroke="#0d47a1" stroke-width="1" opacity="0.3"/>
+    
+    <text x="20" y="65" class="metrics-label" font-size="14">📊 Materials Processed: 2</text>
+    <text x="20" y="88" class="metrics-label" font-size="14">✂️ Total Chunks Created: 12</text>
+    <text x="20" y="111" class="metrics-label" font-size="14">🧠 Total Embeddings: 12 (384-dim)</text>
+    <text x="20" y="134" class="metrics-label" font-size="14">💾 FAISS Index Size: ~81 KB</text>
+    <text x="20" y="157" class="metrics-label" font-size="14">⏱️ Avg Processing Time: 1-2 sec</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(80, 745)">
+    <text class="legend-text" font-size="13" font-weight="600">Legend:</text>
+    <circle cx="110" cy="-8" r="7" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+    <text x="125" y="-2" class="legend-text" font-size="12">= Progress Indicator (animates through pipeline)</text>
+  </g>
+</svg>

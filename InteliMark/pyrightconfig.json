@@ -1,0 +1,21 @@
+{
+  "typeCheckingMode": "basic",
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.venv",
+    "**/.*",
+    ".git",
+    ".github",
+    "node_modules",
+    "dist",
+    "build"
+  ],
+  "pythonVersion": "3.11",
+  "venvPath": "${workspaceFolder}/backend/rag_marking",
+  "venv": ".venv311",
+  "extraPaths": [
+    "${workspaceFolder}/backend",
+    "${workspaceFolder}/backend/rag_marking"
+  ]
+}

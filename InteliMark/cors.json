@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["http://localhost:5173", "http://localhost:8080", "https://intellimark-4ceed.web.app"],
+    "method": ["GET", "HEAD", "DELETE"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]

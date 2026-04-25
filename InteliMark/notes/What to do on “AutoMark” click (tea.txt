@@ -1,0 +1,68 @@
+What to do on “AutoMark” click (teacher portal)
+Popup shows (auto-filled):
+Assessment name/type
+CLOs linked to that assessment/course
+Rubric (criteria + marks)
+Teacher uploads sample answer (PDF/DOCX/text, optionally images)
+When teacher clicks “Run AutoMark”:
+
+Ensure student submission is already ingested (your submissionRaw + FAISS submission index).
+Ensure sample answer is ingested into a reference store (explained below).
+Then call the LLM with:
+rubric + CLO
+retrieved student chunks
+retrieved sample answer chunks
+(optional) retrieved course material chunks as word bank
+
+Where to store sample answer (best practice)
+Don’t embed sample answers into the submissions index (because that index is for student-to-student, plagiarism, etc.). Use one of these:
+
+Option A (recommended): separate “assessment reference” FAISS index
+Create an AssessmentReferenceFAISS index containing:
+
+sample answers
+marking rubric text
+CLO text Metadata per chunk:
+doc_type: "assessment_reference"
+assessment_id
+course_id
+reference_type: "sample_answer" | "rubric" | "clo"
+plus chunk ids, hash, ingested_at
+This lets you retrieve “what the correct answer expects” quickly and cleanly.
+
+Option B: store sample answer text in Mongo only (no embeddings)
+Works for very small sample answers, but retrieval is weaker and the LLM context may overflow for big docs.
+
+How the LLM uses the sample answer
+Use it in two ways:
+
+Retrieval comparator: retrieve top chunks from sample answer that match the student’s topic, so the LLM can compare “student claim vs expected solution”.
+Rubric anchoring: include sample-answer evidence as citations when assigning marks (“criterion met because student matches these key steps/points”).
+Prompt shape (conceptual)
+System: “You are a strict grader… output JSON only… cite chunk IDs.”
+Inputs:
+rubric criteria + marks
+CLO list
+retrieved chunks:
+student_chunks[]
+sample_answer_chunks[]
+optional materials_chunks[]
+Output JSON:
+per-criterion score + rationale + citations: [student_chunk_ids, reference_chunk_ids]
+totals + penalty calculations handled by backend
+Important note (for fairness)
+If you rely on sample answer heavily, add a rule:
+
+“If sample answer is missing/low quality → mark as needs_review.” So teachers remain in control.
+If you want, tell me: should sample answer be per assessment (recommended) or per quiz question inside an assessment? That affects the storage and retrieval metadata (question_id).
+
+
+
+
+Fairness note (recommended rule)
+Add this policy into your auto-mark prompt + UI:
+
+If sampleAnswerText is missing OR extraction failed OR text is too short (e.g. < 200 chars), the LLM must output:
+needs_review: true
+and give no/partial automated score, or score with very low confidence
+Teacher sees a banner: “Sample answer missing/weak → manual review recommended.”
